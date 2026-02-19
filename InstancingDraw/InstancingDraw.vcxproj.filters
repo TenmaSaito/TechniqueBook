@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\main">
+      <UniqueIdentifier>{6bb586c4-1c34-4868-a4c9-b56e91881387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\main">
+      <UniqueIdentifier>{11c4deb5-6f1d-41f0-b90e-ccf724036405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\resouce">
+      <UniqueIdentifier>{2efe19d9-171d-4579-8c73-40ad81a7e466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\resouce">
+      <UniqueIdentifier>{e8dc7373-e185-4ee8-b42f-ea300f7bae1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\object">
+      <UniqueIdentifier>{ef0c07ec-ed72-4712-9be4-c6c2f063d364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\object">
+      <UniqueIdentifier>{86e2201f-7223-4b67-ac90-d8baa5b7ca76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\main\DirectX">
+      <UniqueIdentifier>{89151d16-272b-47b4-bd24-ffd5e0fc3ec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\main\DirectX\3D">
+      <UniqueIdentifier>{06458929-9343-496c-869d-84148b9c19fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\main\System">
+      <UniqueIdentifier>{3ad3b7a5-04ce-40e7-8af6-a63fb2f009ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\main\DirectX">
+      <UniqueIdentifier>{3465834d-7082-4b56-9c4f-6333a5ea20d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\main\DirectX\3D">
+      <UniqueIdentifier>{609bb489-0737-4d02-bd68-3ec56770d93f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\main\System">
+      <UniqueIdentifier>{fde56af3-d717-4b9c-b69f-3ec59f7aec42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\mode">
+      <UniqueIdentifier>{e19fb992-fb8b-46c4-9c22-898ec3d2e784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\mode\game">
+      <UniqueIdentifier>{31315a89-6b14-4ed6-9c4f-270a1956bef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\mode\Title">
+      <UniqueIdentifier>{2c0a0ef7-8de3-4434-89bf-498a9eedf4ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\mode">
+      <UniqueIdentifier>{2b916977-b831-4cfa-a133-07869da70b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\mode\Title">
+      <UniqueIdentifier>{40cc9b49-98c2-4841-98b5-ee25487f28e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\mode\game">
+      <UniqueIdentifier>{c774c72d-4b80-4da7-be20-23983d09bcd6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\resouce</Filter>
+    </ClCompile>
+    <ClCompile Include="2Dpolygon.cpp">
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>ソース ファイル\mode\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="3Dmodel.cpp">
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>ソース ファイル\mode\game</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>ソース ファイル\main\DirectX\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>ソース ファイル\main\DirectX\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>ソース ファイル\main\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="debugproc.cpp">
+      <Filter>ソース ファイル\main\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
+      <Filter>ソース ファイル\main\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル\main\System</Filter>
+    </ClCompile>
+    <ClCompile Include="thread.cpp">
+      <Filter>ソース ファイル\main\System</Filter>
+    </ClCompile>
+    <ClCompile Include="modeldata.cpp">
+      <Filter>ソース ファイル\resouce</Filter>
+    </ClCompile>
+    <ClCompile Include="mathUtil.cpp">
+      <Filter>ソース ファイル\main\System</Filter>
+    </ClCompile>
+    <ClCompile Include="mode.cpp">
+      <Filter>ソース ファイル\mode</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingModel.cpp">
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="2Dpolygon.h">
+      <Filter>ヘッダー ファイル\object</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\resouce</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ヘッダー ファイル\mode\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>ヘッダー ファイル\mode\game</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>ヘッダー ファイル\main\DirectX\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>ヘッダー ファイル\main\DirectX\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="3Dmodel.h">
+      <Filter>ヘッダー ファイル\object</Filter>
+    </ClInclude>
+    <ClInclude Include="modeldata.h">
+      <Filter>ヘッダー ファイル\resouce</Filter>
+    </ClInclude>
+    <ClInclude Include="debugproc.h">
+      <Filter>ヘッダー ファイル\main\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
+      <Filter>ヘッダー ファイル\main\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>ヘッダー ファイル\main\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="mathUtil.h">
+      <Filter>ヘッダー ファイル\main\System</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル\main\System</Filter>
+    </ClInclude>
+    <ClInclude Include="thread.h">
+      <Filter>ヘッダー ファイル\main\System</Filter>
+    </ClInclude>
+    <ClInclude Include="mode.h">
+      <Filter>ヘッダー ファイル\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>ヘッダー ファイル\object</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancingModel.h">
+      <Filter>ヘッダー ファイル\object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="effectShader.fx">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
