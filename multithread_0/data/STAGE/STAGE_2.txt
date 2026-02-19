@@ -1,0 +1,245 @@
+#==============================================
+#
+# STAGE_2.txt
+# Author : 
+#
+#==============================================
+SCRIPT	# 消すな！
+
+#==============================================
+# --- ブロックの設置 ---
+#==============================================
+
+# --- BLOCKNUM < 0 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 669.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 25.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 1 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 40.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 25.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 2 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 25.0 604.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 3 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 1210.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 25.0 604.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 4 > ---
+BLOCKSET
+	TYPE = 0
+	POS = -53.0 0.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 100.0 720.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 5 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 1235.0 0.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 100.0 720.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 6 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 -60.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 100.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 7 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 694.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 100.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 8 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 335.0 333.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 600.0 50.0
+END_BLOCKSET
+
+# ITEM# --- BLOCKNUM < 9 > ---
+ENEMYSET
+	TYPE = 1
+	MOVE = 1.5 0.0 0.0
+	RECT = 100.0 225.0 1200.0 225.0
+	POS = 650.0 225.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ENEMYSET
+
+# ITEM# --- BLOCKNUM < 10 > ---
+ENEMYSET
+	TYPE = 1
+	MOVE = 3.5 0.0 0.0
+	RECT = 100.0 125.0 1200.0 125.0
+	POS = 1100.0 125.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ENEMYSET
+
+# ITEM# --- BLOCKNUM < 11 > ---
+ENEMYSET
+	TYPE = 1
+	MOVE = 5.0 0.0 0.0
+	RECT = 100.0 325.0 1200.0 325.0
+	POS = 160.0 325.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ENEMYSET
+
+BLOCKSET
+	TYPE = 0
+	POS = 350.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+BLOCKSET
+	TYPE = 0
+	POS = 850.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 12 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 400.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 13 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 500.0 383.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 14 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 700.0 383.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 15 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 800.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# ITEM# --- BLOCKNUM < 16 > ---
+ENEMYSET
+	TYPE = 0
+	GRAVITY = 0
+	MOVE = 1.0 -0.5 0.0
+	POS = 619.0 668.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ENEMYSET
+
+# ITEM# --- BLOCKNUM < 17 > ---
+ITEMSET
+	TYPE = 1
+	POS = 1050.0 525.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# --- BLOCKNUM < 18 > ---
+EXITSET
+	TYPE = 0
+	POS = 1160.0 619.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_EXITSET
+
+# ITEM# --- BLOCKNUM < 19 > ---
+ITEMSET
+	TYPE = 0
+	POS = 525.0 625.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 20 > ---
+ITEMSET
+	TYPE = 0
+	POS = 725.0 625.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 21 > ---
+ITEMSET
+	TYPE = 0
+	POS = 225.0 150.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 22 > ---
+ITEMSET
+	TYPE = 0
+	POS = 425.0 200.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 23 > ---
+ITEMSET
+	TYPE = 0
+	POS = 625.0 225.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 24 > ---
+ITEMSET
+	TYPE = 0
+	POS = 825.0 250.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 25 > ---
+ITEMSET
+	TYPE = 0
+	POS = 1025.0 300.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+END_SCRIPT	# 消すな！

@@ -1,0 +1,4 @@
+﻿  debugproc.cpp
+C:\Users\student\Desktop\DesktopFile\3DGame\tools\multithread_0\debugproc.cpp(131,9): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\student\Desktop\DesktopFile\3DGame\tools\multithread_0\debugproc.cpp(199,11): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  multithread_0.vcxproj -> C:\Users\student\Desktop\DesktopFile\3DGame\tools\multithread_0\Debug\multithread_0.exe

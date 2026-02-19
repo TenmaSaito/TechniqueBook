@@ -1,0 +1,277 @@
+#==============================================
+#
+# STAGE_1.txt
+# Author : 
+#
+#==============================================
+SCRIPT	# 消すな！
+
+#==============================================
+# --- ブロックの設置 ---
+#==============================================
+
+# --- BLOCKNUM < 0 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 669.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 25.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 1 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 40.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 25.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 2 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 25.0 604.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 3 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 1210.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 25.0 604.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 4 > ---
+BLOCKSET
+	TYPE = 0
+	POS = -53.0 0.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 100.0 720.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 5 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 1235.0 0.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 100.0 720.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 6 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 -60.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 100.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 7 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 47.0 694.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1188.0 100.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 8 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 350.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 9 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 550.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 10 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 750.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 11 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 950.0 618.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 12 > ---
+BLOCKSET
+	TYPE = 0
+	POS = 72.0 329.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 1000.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 13 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 250.0 278.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 14 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 450.0 278.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 15 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 650.0 278.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 16 > ---
+BLOCKSET
+	TYPE = 1
+	POS = 850.0 278.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 17 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 450.0 379.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 18 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 650.0 379.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 19 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 850.0 379.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 20 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 950.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 40.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 21 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 750.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 40.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 22 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 550.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 40.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 23 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 350.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 40.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 24 > ---
+BLOCKSET
+	TYPE = 1
+	GRAVITY = 1
+	POS = 1160.0 65.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_BLOCKSET
+
+# --- BLOCKNUM < 25 > ---
+EXITSET
+	GRAVITY = 0
+	POS = 1160.0 619.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_EXITSET
+
+# ITEM# --- BLOCKNUM < 26 > ---
+ITEMSET
+	TYPE = 0
+	POS = 575.0 450.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 27 > ---
+ITEMSET
+	TYPE = 0
+	POS = 775.0 450.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 28 > ---
+ITEMSET
+	TYPE = 0
+	POS = 775.0 300.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 29 > ---
+ITEMSET
+	TYPE = 0
+	POS = 675.0 150.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 30 > ---
+ITEMSET
+	TYPE = 0
+	POS = 575.0 300.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+# ITEM# --- BLOCKNUM < 31 > ---
+ITEMSET
+	TYPE = 1
+	POS = 150.0 225.0 0.0
+	COLOR = 1.0 1.0 1.0 1.0
+	SIZE = 50.0 50.0
+END_ITEMSET
+
+END_SCRIPT	# 消すな！
