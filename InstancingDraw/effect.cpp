@@ -545,12 +545,6 @@ void UpdateEffect(void)
 	int nIdx = 0;
 	for (int nCntEffect = 0; nCntEffect < g_nNumEffect; nCntEffect++)
 	{
-		// ˆÊ’u‚ð”½‰f
-		g_aEffect[nCntEffect].pos.x += g_aEffect[nCntEffect].move.x;
-		g_aEffect[nCntEffect].pos.y += g_aEffect[nCntEffect].move.y;
-		g_aEffect[nCntEffect].pos.z += g_aEffect[nCntEffect].move.z;
-		g_aEffect[nCntEffect].fRadius -= 0.0001f;
-
 		g_aEffect[nCntEffect].nLife--;
 		if (g_aEffect[nCntEffect].nLife <= 0 || g_aEffect[nCntEffect].fRadius <= 0.0f)
 		{ // ƒ‰ƒCƒt‚ª0ˆÈ‰º‚È‚çŽ€–SBƒ\[ƒg‚Å˜g‚ð–„‚ß‚é
@@ -558,6 +552,12 @@ void UpdateEffect(void)
 			nCntEffect--;
 			continue;
 		}
+
+		// ˆÊ’u‚ð”½‰f
+		g_aEffect[nCntEffect].pos.x += g_aEffect[nCntEffect].move.x;
+		g_aEffect[nCntEffect].pos.y += g_aEffect[nCntEffect].move.y;
+		g_aEffect[nCntEffect].pos.z += g_aEffect[nCntEffect].move.z;
+		g_aEffect[nCntEffect].fRadius -= 0.0001f;
 
 		D3DXMATRIX mtxScale;
 
