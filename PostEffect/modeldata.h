@@ -1,11 +1,11 @@
 //================================================================================================================
 //
-// DirectXの3Dモデル配置用ヘッダファイル [3Dmodel.h]
+// DirectXのXファイル読み込み用ヘッダファイル [modeldata.h]
 // Author : TENMA
 //
 //================================================================================================================
-#ifndef _3DMODEL_H_
-#define _3DMODEL_H_
+#ifndef _MODELDATA_H_
+#define _MODELDATA_H_
 
 //**********************************************************************************
 //*** インクルードファイル ***
@@ -15,39 +15,36 @@
 //**********************************************************************************
 //*** マクロ定義 ***
 //**********************************************************************************
+#define MAX_MODELDATA		(256)			// 読み込めるモデル数
+#define MAX_MODELTEXTURE	(14)			// 読み込むテクスチャの最大数
+#define ERROR_XFILE			(-1)			// Xファイル読み込み失敗時の値
 
 //*************************************************************************************************
 //*** モデル情報構造体の定義 ***
 //*************************************************************************************************
-typedef struct _3DMODEL
+typedef struct tagMODELDATA
 {
-	D3DXVECTOR3 pos;		// 3Dモデルの位置
-	D3DXVECTOR3 rot;		// 3Dモデルの向き
-	D3DXVECTOR3 posOld;		// 3Dモデルの過去位置
-	D3DXVECTOR3 rotOld;		// 3Dモデルの過去の向き
-	D3DXMATRIX mtxWorld;	// ワールドマトリックス(pos, rotがoldと一致した場合初期化せずそのまま使用)
-	int nIdx3Dmodel;		// モデルデータのインデックス
-	bool bUse;				// 格納状況
-} _3DMODEL;
+	LPD3DXMESH pMesh;								// メッシュ(頂点情報)へのポインタ
+	LPD3DXBUFFER pBuffMat;							// マテリアルへのポインタ
+	LPDIRECT3DTEXTURE9 apTexture[MAX_MODELTEXTURE];	// テクスチャへのポインタ
+	DWORD dwNumMat;									// マテリアルの数
+	D3DXVECTOR3 mtxMin;								// オブジェクトの最小値
+	D3DXVECTOR3 mtxMax;								// オブジェクトの最大値
+	D3DXMATRIX mtxWorld;							// ワールドマトリックス
+	char aXFileName[MAX_PATH];						// Xファイル名
+	bool bUse;										// 一度格納しようとしたか
+	bool bSafe;										// 情報が格納されているか(参照可能か)
+} MODELDATA;
 
-typedef struct _3DMODEL *P3DMODEL, *LP3DMODEL;
-
-typedef struct
-{
-	D3DXVECTOR3 constPos;		// 初期設定時以外変更されない位置
-	D3DXVECTOR3 constRot;		// 初期設定時以外変更されない角度
-	D3DXMATRIX constMtxWorld;			// ワールドマトリックス
-	bool bConst;					// 初期設定済みか
-} CONST3DMODEL;
+typedef struct tagMODELDATA *PMODELDATA, *LPMODELDATA;
 
 //**********************************************************************************
 //*** プロトタイプ宣言 ***
 //**********************************************************************************
-void Init3DModel(void);
-void Uninit3DModel(void);
-void Update3DModel(void);
-void Draw3DModel(void);
+void InitModelData(void);
+void UninitModelData(void);
+void ResetModelData(void);
 
-int Set3DModel(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nIdxModelData);
-LP3DMODEL Get3DModel(int nIdxModel);
+HRESULT LoadModelData(const char* pXFileName, int *pOutnIdx);
+LPMODELDATA GetModelData(int nType);
 #endif

@@ -23,22 +23,12 @@ typedef struct _3DMODEL
 {
 	D3DXVECTOR3 pos;		// 3Dモデルの位置
 	D3DXVECTOR3 rot;		// 3Dモデルの向き
-	D3DXVECTOR3 posOld;		// 3Dモデルの過去位置
-	D3DXVECTOR3 rotOld;		// 3Dモデルの過去の向き
-	D3DXMATRIX mtxWorld;	// ワールドマトリックス(pos, rotがoldと一致した場合初期化せずそのまま使用)
+	D3DXMATRIX mtxWorld;	// ワールドマトリックス
 	int nIdx3Dmodel;		// モデルデータのインデックス
 	bool bUse;				// 格納状況
 } _3DMODEL;
 
 typedef struct _3DMODEL *P3DMODEL, *LP3DMODEL;
-
-typedef struct
-{
-	D3DXVECTOR3 constPos;		// 初期設定時以外変更されない位置
-	D3DXVECTOR3 constRot;		// 初期設定時以外変更されない角度
-	D3DXMATRIX constMtxWorld;			// ワールドマトリックス
-	bool bConst;					// 初期設定済みか
-} CONST3DMODEL;
 
 //**********************************************************************************
 //*** プロトタイプ宣言 ***

@@ -15,10 +15,6 @@
 #include "3Dmodel.h"
 #include "light.h"
 #include "thread.h"
-#include "effect.h"
-#include "mathUtil.h"
-
-using namespace MyMathUtil;
 
 //**********************************************************************************
 //*** マクロ定義 ***
@@ -53,8 +49,13 @@ void InitGame(void)
 	/*** ライトの初期化 ***/
 	InitLight();
 
-	/*** エフェクトの初期化 ***/
-	InitEffect();
+	/*** Xファイルの読み込み ***/
+	int nIdxModelData;		// モデルデータへのインデックス
+	if (SUCCEEDED(LoadModelData("data/MODEL/XmasTree.x", &nIdxModelData)))
+	{
+		// モデルデータ使用した3Dモデルの配置
+		g_nIdx3DModel = Set3DModel(D3DXVECTOR3_NULL, D3DXVECTOR3_NULL, nIdxModelData);
+	}
 
 	D3DVIEWPORT9 viewport;
 
@@ -67,13 +68,14 @@ void InitGame(void)
 	viewport.MaxZ = 1.0f;
 
 	// カメラの設置
-	g_nIdxCamera = AddCamera(D3DXVECTOR3(0.0f, 0.0f, -300.0f),
+	g_nIdxCamera = AddCamera(D3DXVECTOR3(0.0f, 75.0f, -300.0f),
 		D3DXVECTOR3(0.0f, 0.0f, 0.0f),
 		D3DXVECTOR3(0.0f, 0.0f, D3DX_HALFPI),
 		viewport);
 
-	int nIdx;
-	LoadModelData("data\\MODEL\\Building\\building_0.x", &nIdx);
+	Thread t;
+
+	t.CreateThread(NULL, DEFAULT_PROC, false, NULL);
 }
 
 //==================================================================================
@@ -94,9 +96,6 @@ void UninitGame(void)
 
 	/*** ライトの終了 ***/
 	UninitLight();
-
-	/*** エフェクトの終了 ***/
-	UninitEffect();
 }
 
 //==================================================================================
@@ -125,17 +124,6 @@ void UpdateGame(void)
 
 	/*** ライトの更新 ***/
 	UpdateLight();
-
-	/*** エフェクトの更新 ***/
-	UpdateEffect();
-
-#define MAX_FOR 50
-
-	for (int nCntEffect = 0; nCntEffect < MAX_FOR; nCntEffect++)
-	{
-		D3DXVECTOR3 pos = GetRandomVector3(628, 628, 628);
-		SetEffect(VECNULL, pos, 0.5f, 30.0f, 30.0f, 300);
-	}
 }
 
 //==================================================================================
@@ -154,28 +142,6 @@ void DrawGame(void)
 
 		/*** 3Dモデルの描画 ***/
 		Draw3DModel();
-
-		// VERTEX_2D ============================================
-		/*** Aの描画 ***/
-	}
-}
-
-//==================================================================================
-// --- インスタンシング描画 ---
-//==================================================================================
-void DrawGameInstance(void)
-{
-	// カメラの数分だけ描画
-	for (int nCntDraw = 0; nCntDraw < GetCameraNum(); nCntDraw++)
-	{
-		/*** カメラの設置 ***/
-		SetCamera(nCntDraw);
-
-		// VERTEX_3D ============================================
-		/*** Aの描画 ***/
-
-		/*** エフェクトの描画 ***/
-		DrawEffectInstance();
 
 		// VERTEX_2D ============================================
 		/*** Aの描画 ***/

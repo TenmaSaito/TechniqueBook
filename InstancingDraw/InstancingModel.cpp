@@ -144,11 +144,15 @@ void InitInstancingModel(void)
 
 	DWORD dwNumAttr;
 
+	// 属性テーブルを取得
 	pModelData->pMesh->GetAttributeTable(NULL, &dwNumAttr);
 
 	if (dwNumAttr > 0)
 	{
+		// 属性テーブルの数分、属性テーブルのサイズを確保
 		D3DXATTRIBUTERANGE* pRange = (D3DXATTRIBUTERANGE*)malloc(sizeof(D3DXATTRIBUTERANGE) * dwNumAttr);
+
+		// 属性テーブルを取得
 		pModelData->pMesh->GetAttributeTable(pRange, &dwNumAttr);
 		pIC_MODEL->dwNumAttr = dwNumAttr;
 

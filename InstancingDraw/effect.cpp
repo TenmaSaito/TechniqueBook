@@ -13,6 +13,14 @@
 #include "debugproc.h"
 #include "mathUtil.h"
 
+const D3DXMATRIX mtxIdentity = D3DXMATRIX
+(
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+	0, 0, 0, 1
+);
+
 //*************************************************************************************************
 //*** マクロ定義 ***
 //*************************************************************************************************
@@ -40,6 +48,253 @@ typedef struct
 	float fRadius;
 	bool bUse;				// 使っているか
 }Effect;
+
+// エフェクトマネージャー
+struct EffectManager
+{
+	Effect *pEffect;						// エフェクトの総合管理ポインタ
+	LPDIRECT3DVERTEXBUFFER9 pMtxBuff;		// マトリックスバッファへのポインタ
+	LPDIRECT3DDEVICE9 pDevice;				// デバイス
+	int nCntEffect;							// 現在設置されているエフェクトの数
+	int size;								// 現状確保されているメモリサイズ(Effect * size)
+
+	// コンストラクタ
+	constexpr EffectManager() : pEffect(nullptr), pMtxBuff(nullptr), pDevice(nullptr), nCntEffect(0), size(0)
+	{
+
+	}
+
+	// デストラクタ
+	~EffectManager()
+	{ // メモリの解放
+		if (pEffect == nullptr) return;
+
+		free(pEffect);
+		pEffect = nullptr;
+		nCntEffect = 0;
+		size = 0;
+	}
+
+	void Release(void)
+	{
+		this->~EffectManager();
+	}
+
+	// アップデート
+	void Update(void)
+	{
+		Effect *pEf = pEffect;
+		D3DXMATRIX mtxTrans;		// 計算用マトリックス
+		D3DXMATRIX mtxView;			// ビューマトリックスの取得用
+		D3DXMATRIX mtxRot;			// 計算用
+		VTX_INSTANCE* pInstance;	// マトリックスバッファへのポインタ
+		int nIdx = 0;
+
+		pDevice = GetDevice();
+
+		// NullCheck
+		if (pEf == nullptr) return;
+		if (pMtxBuff == nullptr) return;
+
+		// マトリックスバッファのロック
+		pMtxBuff->Lock(0, 0, (void**)&pInstance, 0);
+
+		for (int nCntUpdate = 0; nCntUpdate < nCntEffect; nCntUpdate++, pEf++)
+		{
+			// アップデートの内容
+
+			// 位置を反映
+			pEf->pos.x += pEf->move.x;
+			pEf->pos.y += pEf->move.y;
+			pEf->pos.z += pEf->move.z;
+			pEf->fRadius -= 0.001f;
+			pEf->nLife--;
+			if (pEf->nLife <= 0 || pEf->fRadius <= 0.0f)
+			{
+				RemoveHeapMem(nCntUpdate);
+				pEf--;
+				continue;
+			}
+
+			D3DXMATRIX mtxScale;
+
+			/*** ワールドマトリックスの初期化 ***/
+			pEf->mtxWorld = mtxIdentity;
+
+			D3DXMatrixScaling(&mtxScale,
+				pEf->fRadius,
+				pEf->fRadius,
+				pEf->fRadius);
+
+			pEf->mtxWorld = pEf->mtxWorld * mtxScale;
+
+			/*** カメラのビューマトリックスを取得 ***/
+			pDevice->GetTransform(D3DTS_VIEW, &mtxView);
+
+			/*** マトリックスの逆行列を求める (※ 位置を反映する前に必ず行うこと！) ***/
+			D3DXMatrixInverse(&mtxRot, NULL, &mtxView);
+			/** 逆行列によって入ってしまった位置情報を初期化 **/
+			mtxRot._41 = 0.0f;
+			mtxRot._42 = 0.0f;
+			mtxRot._43 = 0.0f;
+
+			pEf->mtxWorld = pEf->mtxWorld * mtxRot;
+
+			/*** 位置を反映 (※ 向きを反映したのちに行うこと！) ***/
+			D3DXMatrixTranslation(&mtxTrans,
+				pEf->pos.x,
+				pEf->pos.y,
+				pEf->pos.z);
+
+			pEf->mtxWorld = pEf->mtxWorld * mtxTrans;
+
+			pInstance[nIdx].mtxWorld = pEf->mtxWorld;
+			pInstance[nIdx].col = pEf->col;
+			nIdx++;
+		}
+
+		// マトリックスバッファのアンロック
+		pMtxBuff->Unlock();
+
+		EndDevice();
+	}
+
+	// インスタンスバッファの登録
+	void SubscribeInstanceBuffer(LPDIRECT3DVERTEXBUFFER9 pBuff)
+	{
+		pMtxBuff = pBuff;
+	}
+
+	// エフェクトの新規作成
+	void SetEffect(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fSpd, float fWidth, float fHeight, int nLife)
+	{
+		Effect* pSetEffect = nullptr;
+
+		// メモリの動的確保
+		pSetEffect = (Effect*)malloc(sizeof(Effect));
+		if (pSetEffect != nullptr)
+		{ // 確保成功
+			D3DXVec3Normalize(&rot, &rot);
+
+			pSetEffect->pos = pos;
+			pSetEffect->fWidth = fWidth;
+			pSetEffect->fHeight = fHeight;
+			pSetEffect->move.x = rot.x * fSpd;
+			pSetEffect->move.y = rot.y * fSpd;
+			pSetEffect->move.z = rot.z * fSpd;
+			pSetEffect->col = D3DXCOLOR_NULL;
+			pSetEffect->nLife = EFFECT_LIFE;
+			pSetEffect->fRadius = 1.0f;
+
+			if (nLife != -1)
+			{
+				pSetEffect->nLife = nLife;
+				pSetEffect->col = MyMathUtil::GetRandomColor(false);
+			}
+
+			pSetEffect->bUse = true;
+
+			SetHeapMem(pSetEffect);
+			free(pSetEffect);
+		}
+	}
+
+private:
+	// ヒープメモリへ情報を保存
+	void SetHeapMem(Effect* p)
+	{
+		size_t memsize = sizeof(Effect) * size;		// 現在角押されているメモリサイズ
+		size_t onesize = sizeof(Effect);			// 一つ当たりのサイズ
+		int nCouldSet = memsize / onesize;			// 格納可能なサイズ
+
+		// メモリ不足の場合
+		if (nCouldSet <= nCntEffect + 1)
+		{
+			Effect *pRealloc = NULL;
+
+			// メモリの追加確保
+			pRealloc = (Effect*)realloc(pEffect, sizeof(Effect) * (nCntEffect + 1));
+			if (pRealloc != nullptr)
+			{ // メモリ確保成功時
+				if (pRealloc != pEffect)
+				{ // アドレス変化時
+					pEffect = pRealloc;
+				}
+
+				// メモリの保存
+				Effect *pSet = pEffect;
+
+				// メモリを指定の場所まで移動
+				pSet += nCntEffect;
+
+				// データの保存
+				memcpy(pSet, p, sizeof(Effect));
+
+				// エフェクトの数を増加
+				nCntEffect++;
+
+				// メモリサイズを保存
+				size++;
+			}
+			else
+			{ // 一度だけメモリの新規確保が出来ないか実行
+				Effect *pMalloc = NULL;
+				pMalloc = (Effect*)malloc(sizeof(Effect) * nCntEffect);
+				if (pMalloc != nullptr)
+				{ // 新規確保成功時
+					// 情報をコピー
+					memcpy(pMalloc, pEffect, sizeof(Effect) * nCouldSet);
+
+					// 元あるメモリを解放
+					free(pEffect);
+
+					// メモリ位置を保存
+					pEffect = pMalloc;
+
+					// メモリの保存
+					Effect* pSet = pEffect;
+
+					// メモリを指定の場所まで移動
+					pSet += nCntEffect;
+
+					// データの保存
+					memcpy(pSet, p, sizeof(Effect));
+
+					// エフェクトの数を増加
+					nCntEffect++;
+
+					// メモリサイズを保存
+					size++;
+				}
+			}
+		}
+		else
+		{ // 確保可能な場合
+			// メモリの保存
+			Effect* pSet = pEffect;
+
+			// メモリを指定の場所まで移動
+			pSet += nCntEffect;
+
+			// データの保存
+			memcpy(pSet, p, sizeof(Effect));
+
+			// エフェクトの数を増加
+			nCntEffect++;
+		}
+	}
+
+	// 保存済みの値を消去し、ずらす
+	void RemoveHeapMem(int nIdx)
+	{
+		Effect* pSet = pEffect;
+
+		pSet += nIdx;
+
+		memcpy(pSet, pSet + 1, sizeof(Effect) * (nCntEffect - (nIdx + 1)));
+		nCntEffect--;
+	}
+};
 
 //*************************************************************************************************
 //*** シェーダー内照明構造体の定義 ***
@@ -72,6 +327,8 @@ Effect g_aEffect[MAX_EFFECT];						// エフェクトの情報
 D3DXVECTOR3 g_posEffect;							// ポリゴンの位置
 int g_nIndexTextureEffect;							// テクスチャインデックス
 int g_nNumEffect;									// エフェクトの数
+
+EffectManager g_EffectManager;
 
 //================================================================================================================
 // --- エフェクトの初期化処理 ---
@@ -158,6 +415,8 @@ void InitEffect(void)
 	WORD aIdx[6] = { 0, 1, 2, 2, 1, 3 };
 	WORD* pIdx = NULL;
 
+	g_EffectManager.SubscribeInstanceBuffer(g_pMtxBuffEffect);
+
 	/*** インデックスバッファの作成 ***/
 	hr = pDevice->CreateIndexBuffer(sizeof(WORD) * 6,	// sizeof(WORD) * インデックス数
 		0,												// 特になし
@@ -230,6 +489,14 @@ void InitEffect(void)
 			"インスタンシングが出来ません");
 	}
 
+	if (caps.PixelShaderVersion < D3DPS_VERSION(3, 0))
+	{
+		// このGPUではDX9インスタンシング不可
+		MyMathUtil::GenerateMessageBox(MB_ICONERROR,
+			"Error",
+			"インスタンシングが出来ません");
+	}
+
 	//===================================================================================
 }
 
@@ -252,6 +519,9 @@ void UninitEffect(void)
 
 	/*** シェーダーの破棄 ***/
 	RELEASE(g_pEffect);
+
+	/*** エフェクトマネージャーの解放 ***/
+	g_EffectManager.Release();
 }
 
 //================================================================================================================
@@ -266,25 +536,25 @@ void UpdateEffect(void)
 	D3DXMATRIX mtxRot;			// 計算用
 	VTX_INSTANCE *pInstance;	// マトリックスバッファへのポインタ
 
+	DWORD dwStart = timeGetTime();
+	DWORD dwEnd;
+
 	// マトリックスバッファのロック
 	g_pMtxBuffEffect->Lock(0, 0, (void**)&pInstance, 0);
 
 	int nIdx = 0;
-	for (int nCntEffect = 0; nCntEffect < MAX_EFFECT; nCntEffect++)
+	for (int nCntEffect = 0; nCntEffect < g_nNumEffect; nCntEffect++)
 	{
-		if (!g_aEffect[nCntEffect].bUse) continue;
-
 		// 位置を反映
 		g_aEffect[nCntEffect].pos.x += g_aEffect[nCntEffect].move.x;
 		g_aEffect[nCntEffect].pos.y += g_aEffect[nCntEffect].move.y;
 		g_aEffect[nCntEffect].pos.z += g_aEffect[nCntEffect].move.z;
-		g_aEffect[nCntEffect].fRadius -= 0.01f;
+		g_aEffect[nCntEffect].fRadius -= 0.0001f;
 
 		g_aEffect[nCntEffect].nLife--;
 		if (g_aEffect[nCntEffect].nLife <= 0 || g_aEffect[nCntEffect].fRadius <= 0.0f)
 		{ // ライフが0以下なら死亡。ソートで枠を埋める
-			g_aEffect[nCntEffect].bUse = false;
-			g_nNumEffect--;
+			SortEffect(nCntEffect);
 			nCntEffect--;
 			continue;
 		}
@@ -331,6 +601,13 @@ void UpdateEffect(void)
 
 	g_nNumEffect = nIdx;
 
+	dwEnd = timeGetTime();
+
+	DWORD dw = dwEnd - dwStart;
+	PrintDebugProc("time : %d\n", dw);
+
+	//g_EffectManager.Update();
+
 	EndDevice();
 }
 
@@ -347,6 +624,9 @@ void DrawEffect(void)
 //================================================================================================================
 void DrawEffectInstance(void)
 {
+	DWORD dwStart = timeGetTime();
+	DWORD dwEnd;
+
 	/*** デバイスの取得 ***/
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	HRESULT hr;
@@ -460,6 +740,12 @@ void DrawEffectInstance(void)
 	pDevice->LightEnable(0, TRUE);
 
 	EndDevice();
+
+	dwEnd = timeGetTime();
+
+	DWORD dw = dwEnd - dwStart;
+	dwEnd = timeGetTime();
+	PrintDebugProc("timeDraw : %d\n", dw);
 }
 
 //================================================================================================================
@@ -467,34 +753,29 @@ void DrawEffectInstance(void)
 //================================================================================================================
 void SetEffect(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fSpd, float fWidth, float fHeight, int nLife)
 {
-	for (int nCntEffect = 0; nCntEffect < MAX_EFFECT; nCntEffect++)
+	Effect *pEffect = &g_aEffect[g_nNumEffect];
+
+	D3DXVec3Normalize(&rot, &rot);
+
+	pEffect->pos = pos;
+	pEffect->fWidth = fWidth;
+	pEffect->fHeight = fHeight;
+	pEffect->move.x = rot.x * fSpd;
+	pEffect->move.y = rot.y * fSpd;
+	pEffect->move.z = rot.z * fSpd;
+	pEffect->col = D3DXCOLOR_NULL;
+	pEffect->nLife = nLife;
+	pEffect->fRadius = 1.0f;
+
+	if (nLife != -1)
 	{
-		if (g_aEffect[nCntEffect].bUse == true) continue;
-
-		D3DXVec3Normalize(&rot, &rot);
-
-		g_aEffect[nCntEffect].pos = pos;
-		g_aEffect[nCntEffect].fWidth = fWidth;
-		g_aEffect[nCntEffect].fHeight = fHeight;
-		g_aEffect[nCntEffect].move.x = rot.x * fSpd;
-		g_aEffect[nCntEffect].move.y = rot.y * fSpd;
-		g_aEffect[nCntEffect].move.z = rot.z * fSpd;
-		g_aEffect[nCntEffect].col = D3DXCOLOR_NULL;
-		g_aEffect[nCntEffect].nLife = EFFECT_LIFE;
-		g_aEffect[nCntEffect].fRadius = 1.0f;
-
-		if (nLife != -1)
-		{
-			g_aEffect[nCntEffect].nLife = nLife;
-			g_aEffect[nCntEffect].col = MyMathUtil::GetRandomColor(false);
-		}
-
-		g_aEffect[nCntEffect].bUse = true;
-
-		g_nNumEffect++;
-
-		break;
+		pEffect->nLife = nLife;
+		pEffect->col = MyMathUtil::GetRandomColor(false);
 	}
+
+	pEffect->bUse = true;
+
+	g_nNumEffect++;
 }
 
 //================================================================================================================
@@ -510,11 +791,16 @@ void SetIndexTextureEffect(int nIndexTexture)
 //================================================================================================================
 void SortEffect(int nIdxEffect)
 {
-	Effect *pEffect = &g_aEffect[nIdxEffect];
-
-	for (int nCntSort = nIdxEffect; nCntSort < MAX_EFFECT - 1; nCntSort++)
-	{ // エフェクトの空きを埋めるようにソート
-		g_aEffect[nCntSort] = g_aEffect[nCntSort + 1];
+	int nIdx = nIdxEffect;
+	if (nIdx == g_nNumEffect - 1)
+	{
+		g_aEffect[nIdx].bUse = false;
+		g_nNumEffect--;
+	}
+	else
+	{
+		memcpy(&g_aEffect[nIdxEffect], &g_aEffect[nIdxEffect + 1], sizeof(Effect) * g_nNumEffect - 1);
+		g_nNumEffect--;
 	}
 }
 
